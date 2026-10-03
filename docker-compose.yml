@@ -80,7 +80,12 @@ services:
       - default
       - dokploy-network
   zammad-postgresql:
-    command: postgres ${POSTGRES_MAX_CONNECTIONS:+-c max_connections=${POSTGRES_MAX_CONNECTIONS}} ${POSTGRES_SHARED_BUFFERS:+-c shared_buffers=${POSTGRES_SHARED_BUFFERS}} ${POSTGRES_TEMP_BUFFERS:+-c temp_buffers=${POSTGRES_TEMP_BUFFERS}} ${POSTGRES_WORK_MEM:+-c work_mem=${POSTGRES_WORK_MEM}} ${POSTGRES_MAX_STACK_DEPTH:+-c max_stack_depth=${POSTGRES_MAX_STACK_DEPTH}} ${POSTGRES_EXTRA_OPTS:-}
+    command:
+      - postgres
+      - -c
+      - max_connections=${POSTGRES_MAX_CONNECTIONS:-200}
+      - -c
+      - shared_buffers=${POSTGRES_SHARED_BUFFERS:-256MB}
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-zammad}
       POSTGRES_PASSWORD: ${POSTGRES_PASS:-zammad}
