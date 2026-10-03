@@ -76,8 +76,9 @@ services:
       - zammad-nginx
     expose:
       - ${NGINX_PORT:-8080}
-    ports:
-      - ${NGINX_EXPOSE_PORT:-8080}:${NGINX_PORT:-8080}
+    networks:
+      - default
+      - dokploy-network
   zammad-postgresql:
     command: postgres ${POSTGRES_MAX_CONNECTIONS:+-c max_connections=${POSTGRES_MAX_CONNECTIONS}} ${POSTGRES_SHARED_BUFFERS:+-c shared_buffers=${POSTGRES_SHARED_BUFFERS}} ${POSTGRES_TEMP_BUFFERS:+-c temp_buffers=${POSTGRES_TEMP_BUFFERS}} ${POSTGRES_WORK_MEM:+-c work_mem=${POSTGRES_WORK_MEM}} ${POSTGRES_MAX_STACK_DEPTH:+-c max_stack_depth=${POSTGRES_MAX_STACK_DEPTH}} ${POSTGRES_EXTRA_OPTS:-}
     environment:
@@ -153,3 +154,6 @@ volumes:
     driver: local
   zammad-storage:
     driver: local
+networks:
+  dokploy-network:
+    external: true
