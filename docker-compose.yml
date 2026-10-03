@@ -1,6 +1,8 @@
 x-shared:
   zammad-service: &a1
     environment:
+      NGINX_SERVER_SCHEME: ${NGINX_SERVER_SCHEME:-https}
+      RAILS_TRUSTED_PROXIES: ${RAILS_TRUSTED_PROXIES:-['127.0.0.1', '::1', '10.0.0.0/8', '172.16.0.0/12']}
       MEMCACHE_SERVERS: ${MEMCACHE_SERVERS:-zammad-memcached:11211}
       POSTGRESQL_DB: ${POSTGRES_DB:-zammad_production}
       POSTGRESQL_HOST: ${POSTGRES_HOST:-zammad-postgresql}
