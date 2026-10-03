@@ -79,6 +79,13 @@ services:
     networks:
       - default
       - dokploy-network
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 10s
+      labels:
+        - traefik.docker.network=dokploy-network
+        - traefik.swarm.network=dokploy-network
   zammad-postgresql:
     command:
       - postgres
